@@ -10,7 +10,7 @@ class AuthServices {
             const result = await Users.findOne({
                 where: { email },
                 attributes: {
-                    exclude: ["createdAt", "updatedAt", "codeVerify", "isVerified", "role_id"]
+                    exclude: ["createdAt", "updatedAt", "role_id"]
                 }
             });
             if(result) {
