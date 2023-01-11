@@ -21,8 +21,21 @@ const createProduct = async (req, res, next) => {
 
 const getAllProducts = async (req, res, next) => {
     try {
-        console.log('hi')
         const result = await ProductServices.getAllProducts();
+        res.status(200).json(result);
+    } catch (error) {
+        next({
+            status: 400,
+            errorContent: error,
+            message: "Algo salio mal",
+        });
+    }
+};
+
+const getProductsByUser = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const result = await ProductServices.getProductsByUser(id);
         res.status(200).json(result);
     } catch (error) {
         next({
@@ -82,6 +95,7 @@ const deleteProduct = async (req, res, next) => {
 module.exports = {
     createProduct,
     getAllProducts,
+    getProductsByUser,
     updateProduct,
     updateStockProduct,
     deleteProduct

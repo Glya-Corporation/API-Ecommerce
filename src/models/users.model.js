@@ -34,10 +34,9 @@ const code = () => Math.ceil( Math.random() * 999999 );
 *                  password:
 *                      type: string
 *                      example: "123123"
-*                  role:
-*                      type: string
-*                      description: "admin, client"
-*                      example: "client"
+*                  roleId:
+*                      type: integer
+*                      example: 1
 *          CreateUser:
 *              type: object
 *              properties:
@@ -56,10 +55,9 @@ const code = () => Math.ceil( Math.random() * 999999 );
 *                  password:
 *                      type: string
 *                      example: "123123"
-*                  role:
-*                      type: string
-*                      description: "admin, client, seller"
-*                      example: "client"
+*                  roleId:
+*                      type: integer
+*                      example: 1
 *          Verify:
 *              type: object
 *              properties:
@@ -247,9 +245,10 @@ const Users = db.define('users', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    role: {
-        type: DataTypes.STRING,
-        defaultValue: "client"
+    roleId: {
+        type: DataTypes.INTEGER,
+        defaultValue: 2,
+        field: "role_id"
     },
     isVerify: {
         type: DataTypes.BOOLEAN,

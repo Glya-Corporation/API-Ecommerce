@@ -12,10 +12,8 @@ const options = {
 
     },
     apis: [
-        "./src/routes/users.route.js",
-        "./src/models/users.model.js",
-        "./src/routes/products.route.js",
-        "./src/models/products.model.js",
+        "./src/routes/*.route.js",
+        "./src/models/*.model.js"
       ],
     
 }

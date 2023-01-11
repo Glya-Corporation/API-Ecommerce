@@ -13,7 +13,7 @@ class ProductsInCartServices {
                     include: {
                         model: Products,
                         as: "item",
-                        attributes: ["url", "stock"]
+                        attributes: ["title", "productImgs", "stock"]
                     }
                 }
             });

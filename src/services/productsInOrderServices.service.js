@@ -46,7 +46,7 @@ class ProductsInOrderServices {
                     include: {
                         model: Products,
                         as: 'product',
-                        attributes: ['id', 'name', 'price', 'url', 'stock']
+                        attributes: ['id', 'title', 'productImgs']
                     }
                 }
             });

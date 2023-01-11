@@ -8,21 +8,31 @@ const { DataTypes } = require('sequelize');
 *     CreateProduct:
 *       type: object
 *       required:
-*         - name
+*         - title
+*         - description
 *         - price
-*         - url
+*         - productImgs
+*         - categoryId
 *         - stock
 *         - userId
 *       properties:
-*         name:
+*         title:
 *           type: string
 *           description: The name of the product.
+*         description:
+*           type: string
+*           description: The description of the product.
 *         price:
 *           type: float
 *           description: The price of the product.
-*         url:
-*           type: string
+*         productImgs:
+*           type: array
 *           description: The url of the product.
+*           items:
+*             type: string
+*         categoryId:
+*           type: integer
+*           description: The category id of the product.
 *         stock:
 *           type: integer
 *           description: The stock of the product.
@@ -30,9 +40,11 @@ const { DataTypes } = require('sequelize');
 *           type: integer
 *           description: The user id of the product.
 *       example:
-*         name: Product 1
+*         title: Product 1
+*         description: Product 1 description
 *         price: 100
-*         url: https://www.google.com
+*         productImgs: ["https://www.google.com"]
+*         categoryId: 1
 *         stock: 10
 *         userId: 1
 *     GetAllProducts:
@@ -41,15 +53,23 @@ const { DataTypes } = require('sequelize');
 *         id:
 *           type: integer
 *           description: The auto-generated id of the product.
-*         name:
+*         title:
 *           type: string
 *           description: The name of the product.
+*         description:
+*           type: string
+*           description: The description of the product.
 *         price:
 *           type: float
 *           description: The price of the product.
-*         url:
-*           type: string
+*         productImgs:
+*           type: array
 *           description: The url of the product.
+*           items:
+*             type: string
+*         categoryId:
+*           type: integer
+*           description: The category id of the product.
 *         stock:
 *           type: integer
 *           description: The stock of the product.
@@ -58,27 +78,61 @@ const { DataTypes } = require('sequelize');
 *           description: The user id of the product.
 *       example:
 *         id: 1
-*         name: Product 1
+*         title: Product 1
+*         description: Product 1 description
 *         price: 100
-*         url: https://www.google.com
+*         productImgs: ["https://www.google.com"]
+*         categoryId: 1
 *         stock: 10
 *         userId: 1
-*     UpdateProduct:
+*     GetProductsByUser:
 *       type: object
 *       properties:
-*         name:
+*         id:
+*           type: integer
+*           description: The auto-generated id of the product.
+*         title:
 *           type: string
 *           description: The name of the product.
+*         description:
+*           type: string
+*           description: The description of the product.
 *         price:
 *           type: float
 *           description: The price of the product.
-*         url:
-*           type: string
+*         productImgs:
+*           type: array
 *           description: The url of the product.
+*           items:
+*             type: string
+*         categoryId:
+*           type: integer
+*           description: The category id of the product.
+*         stock:
+*           type: integer
+*           description: The stock of the product.
+*     UpdateProduct:
+*       type: object
+*       properties:
+*         title:
+*           type: string
+*           description: The name of the product.
+*         description:
+*           type: string
+*           description: The description of the product.
+*         price:
+*           type: float
+*           description: The price of the product.
+*         productImgs:
+*           type: array
+*           description: The url of the product.
+*           items:
+*             type: string
 *       example:
-*         name: Product 1
+*         title: Product 1
+*         description: Product 1 description
 *         price: 100
-*         url: https://www.google.com
+*         productImgs: ["https://www.google.com"]
 *     UpdateStockProduct:
 *       type: object
 *       required:
@@ -109,17 +163,31 @@ const Products = db.define('products', {
         autoIncrement: true,
         allowNull: false,
     },
-    name: {
+    title: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: "category_id"
     },
     price: {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    url: {
+    status: {
         type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'active'
+    },
+    productImgs: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
         unique: true
     },

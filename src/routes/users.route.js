@@ -8,8 +8,7 @@ const router = Router();
 * @openapi
 * /api/v1/user:
 *   post:
-*     tags:
-*       - [Create user]
+*     tags: [User]
 *     summary: Here you can create an user.
 *     description: The role property is optional, if you don't send it, the default role will be client. this property is for the admin, if you want to create an admin user, you have to send the role property with the value "admin".
 *     requestBody:
@@ -39,7 +38,9 @@ const router = Router();
 *         description: Missing Data
 * /api/v1/user/{userId}/verify:
 *  put:
-*   tags: [Verify user]
+*   security:
+*    - bearerAuth: []
+*   tags: [User]
 *   summary: verify your user with the code sended to your email
 *   parameters:
 *    - in: path
@@ -75,7 +76,7 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/all:
 *  get:
-*   tags: [Get all users]
+*   tags: [User]
 *   summary: Get all users
 *   responses:
 *     200:
@@ -97,7 +98,9 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/{userId}:
 *  delete:
-*   tags: [Delete user]
+*   security:
+*     - bearerAuth: []
+*   tags: [User]
 *   summary: Delete an user
 *   parameters:
 *    - in: path
@@ -126,7 +129,9 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/{userId}/cart:
 *  get:
-*   tags: [Get all cart]
+*   security:
+*     - bearerAuth: []
+*   tags: [Cart]
 *   summary: Get all cart
 *   parameters:
 *    - in: path
@@ -153,7 +158,9 @@ const router = Router();
 *                   $ref: '#/components/schemas/GetAllCart'
 * /api/v1/user/cart/{cartId}/product:
 *  post:
-*   tags: [Add product to cart]
+*   security:
+*     - bearerAuth: []
+*   tags: [Cart]
 *   summary: Add product to cart
 *   parameters:
 *    - in: path
@@ -189,7 +196,9 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/cart/{cartId}/product/update:
 *  put:
-*   tags: [Update product in cart]
+*   security:
+*     - bearerAuth: []
+*   tags: [Cart]
 *   summary: Update product in cart
 *   parameters:
 *    - in: path
@@ -225,7 +234,9 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/cart/product/{productId}:
 *  delete:
-*   tags: [Delete product in cart]
+*   security:
+*     - bearerAuth: []
+*   tags: [Cart]
 *   summary: Delete product in cart
 *   parameters:
 *    - in: path
@@ -254,6 +265,8 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/cart/{cartId}/purchases:
 *  put:
+*   security:
+*     - bearerAuth: []
 *   tags: [Purchases]
 *   summary: Purchases
 *   parameters:
@@ -283,7 +296,9 @@ const router = Router();
 *       description: Missing Data
 * /api/v1/user/{userId}/cart/purchases:
 *  get:
-*   tags: [Get purchases]
+*   security:
+*     - bearerAuth: []
+*   tags: [Purchases]
 *   summary: Get purchases
 *   parameters:
 *    - in: path

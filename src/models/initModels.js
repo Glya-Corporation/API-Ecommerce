@@ -1,4 +1,5 @@
-const { Users, Cart, Order, Products, ProductsInCart, ProductsInOrder } = require("./index");
+const Categories = require("./categories.model");
+const { Users, Cart, Order, Products, ProductsInCart, ProductsInOrder, Roles } = require("./index");
 
 const initModels = () => {
     /* ----------------------------------------------------------------------------- */
@@ -12,6 +13,14 @@ const initModels = () => {
     /* ----------------------------------------------------------------------------- */
     Users.hasMany(Products, {as: "products", foreignKey: "user_id"});
     Products.belongsTo(Users, {as: "created", foreignKey: "user_id"});
+
+    /* ----------------------------------------------------------------------------- */
+    Users.belongsTo(Roles, {as: "role", foreignKey: "role_id"});
+    Roles.hasMany(Users, {as: "users", foreignKey: "role_id"});
+
+    /* ----------------------------------------------------------------------------- */
+    Products.belongsTo(Categories, {as: "category", foreignKey: "category_id"});
+    Categories.hasMany(Products, {as: "products", foreignKey: "category_id"});
 
     /* ----------------------------------------------------------------------------- */
     ProductsInCart.belongsTo(Cart, {as: "productCart", foreignKey: "cart_id"});

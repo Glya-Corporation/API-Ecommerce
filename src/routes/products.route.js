@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const { createProduct, getAllProducts, updateProduct, updateStockProduct, deleteProduct } = require('../controllers');
+const { createProduct, getAllProducts, getProductsByUser, updateProduct, updateStockProduct, deleteProduct } = require('../controllers');
+const authenticate = require('../middlewares/auth.middleware');
 
 const router = Router();
 
@@ -7,8 +8,9 @@ const router = Router();
 * @openapi
 * /api/v1/product:
 *   post:
-*     tags:
-*       - [Create product]
+*     security:
+*        - bearerAuth: []
+*     tags: [Product]
 *     summary: Here you can create a product.
 *     description: The product to be created will be unique. The "name" must be unique and the "URL" too.
 *     requestBody:
@@ -41,8 +43,7 @@ const router = Router();
 *                   description: The error content.
 * /api/v1/products:
 *   get:
-*     tags:
-*       - [Get all products]
+*     tags: [Product]
 *     summary: Here you can get all products.
 *     responses:
 *       200:
@@ -65,10 +66,32 @@ const router = Router();
 *                 errorContent:
 *                   type: string
 *                   description: The error content.
+* /api/v1/product/user/{id}:
+*   get:
+*     tags: [Product]
+*     summary: Here you can get all products by user.
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: integer
+*         required: true
+*         description: The user id
+*     responses:
+*       200:
+*         description: Successful Operation
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               $ref: '#/components/schemas/GetProductsByUser'
+*       400:
+*         description: Bad Request
 * /api/v1/product/{id}:
 *   put:
-*     tags:
-*       - [Update product]
+*     security:
+*        - bearerAuth: []
+*     tags: [Product]
 *     summary: Here you can update a product.
 *     parameters:
 *       - in: path
@@ -107,8 +130,9 @@ const router = Router();
 *                   description: The error content.
 * /api/v1/product/{id}/stock:
 *   put:
-*     tags:
-*       - [Update stock product]
+*     security:
+*        - bearerAuth: []
+*     tags: [Product]
 *     summary: Here you can update the stock of a product.
 *     parameters:
 *       - in: path
@@ -147,8 +171,9 @@ const router = Router();
 *                   description: The error content.
 * /api/v1/product/{id}/delete:
 *   delete:
-*     tags:
-*       - [Delete product]
+*     security:
+*        - bearerAuth: []
+*     tags: [Product]
 *     summary: Here you can delete a product.
 *     parameters:
 *       - in: path
@@ -180,15 +205,17 @@ const router = Router();
 *                   description: The error content.
 */
 
-router.post('/product', createProduct);
+router.post('/product', authenticate, createProduct);
 
 router.get('/products', getAllProducts);
 
-router.put('/product/:id', updateProduct);
+router.get('/product/user/:id', authenticate, getProductsByUser);
 
-router.put('/product/:id/stock', updateStockProduct);
+router.put('/product/:id', authenticate, updateProduct);
 
-router.delete('/product/:id/delete', deleteProduct);
+router.put('/product/:id/stock', authenticate, updateStockProduct);
+
+router.delete('/product/:id/delete', authenticate, deleteProduct);
 
 
 module.exports = router;
