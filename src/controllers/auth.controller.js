@@ -5,9 +5,9 @@ const login = async (req, res, next) => {
         const credentials = req.body;
         const result = await AuthServices.login(credentials);
         if (result) {
-            const { email, password, id, firstName, lastName, roleId, phoneNumber, isVerify, codeVerify } = result;
+            const { email, password, id, firstName, lastName, roleId, phoneNumber, isVerify, codeVerify, cartId } = result;
             const token = await AuthServices.generateToken({ email, password, id });
-            const user = { email, id, firstName, lastName, roleId, phoneNumber, isVerify, codeVerify };
+            const user = { email, id, firstName, lastName, roleId, phoneNumber, isVerify, codeVerify, cartId };
             res.status(200).json({ user, token: token });
         } else {
             res.status(400).json({ message: "Wrong password or email" });

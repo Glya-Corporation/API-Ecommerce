@@ -1,4 +1,4 @@
-const { Users } = require("../models");
+const { Users, Cart } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -11,6 +11,13 @@ class AuthServices {
                 where: { email },
                 attributes: {
                     exclude: ["createdAt", "updatedAt", "role_id"]
+                },
+                include: {
+                    model: Cart,
+                    as: "cart",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt", "user_id"]
+                    }
                 }
             });
             if(result) {
