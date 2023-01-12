@@ -188,8 +188,7 @@ const Products = db.define('products', {
     },
     productImgs: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     stock: {
         type: DataTypes.INTEGER,
