@@ -15,9 +15,7 @@ class AuthServices {
                 include: {
                     model: Cart,
                     as: "cart",
-                    attributes: {
-                        exclude: ["createdAt", "updatedAt", "user_id"]
-                    }
+                    attributes: ["id"]
                 }
             });
             if(result) {
