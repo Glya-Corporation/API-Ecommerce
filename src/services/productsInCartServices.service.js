@@ -1,4 +1,4 @@
-const { ProductsInCart, Products, Cart } = require('../models');
+const { ProductsInCart, Products, Cart, Categories } = require('../models');
 
 class ProductsInCartServices {
     static async getAllCart(id) {
@@ -13,7 +13,12 @@ class ProductsInCartServices {
                     include: {
                         model: Products,
                         as: "item",
-                        attributes: ["title", "productImgs", "stock"]
+                        attributes: ["title", "productImgs", "stock"],
+                        include: {
+                            model: Categories,
+                            as: "category",
+                            attributes: ["name"]
+                        }
                     }
                 }
             });
