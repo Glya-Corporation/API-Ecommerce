@@ -22,7 +22,7 @@ class ProductServices {
                     {
                         model: Categories,
                         as: "category",
-                        attributes: ["name"]
+                        attributes: ["id","name"]
                     },
                     {
                         model: Users,
