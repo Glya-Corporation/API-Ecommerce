@@ -17,15 +17,13 @@ app.use(cors());
 db.authenticate()
     .then(() => console.log('Authenticate complete'))
     .catch(error => console.log(error));
-    
-db.sync({ force: true })
-    .then(() => {
-        console.log('Synchronized database')
-        seedDatabase();
-    })
+
+db.sync({ force: false })
+    .then(() => console.log('Synchronized database'))
     .catch(error => console.log(error));
 
 initModels();
+seedDatabase();
 
 app.get('/', (req, res) => {
     console.log('Bienvenido al server');
