@@ -1,8 +1,9 @@
-const db = require("../utils/database");
-const initModels = require("../models/initModels");
-const { Cart, Users, Roles, Categories, Products } = require("../models");
+const seedDatabase = () => {
 
-const seedDatabase = async () => {
+    const db = require("../utils/database");
+    const initModels = require("../models/initModels");
+    const { Cart, Users, Roles, Categories, Products } = require("../models");
+    
     initModels();
 
     const roles = [
