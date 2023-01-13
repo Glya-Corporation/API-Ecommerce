@@ -61,9 +61,10 @@ class ProductsInCartServices {
             throw error
         }
     }
-    static async updatePrductToCart(id, productIdCart, newQuantity) {
+    static async updatePrductToCart(id, productId, newQuantity) {
         try {
-            const { productId, quantity } = await ProductsInCart.findOne({ where: { id: productIdCart } });
+            const { quantity } = await ProductsInCart.findOne({
+                where: { productId: productId } });
             const { stock, price } = await Products.findOne({ where: { id: productId } });
 
             if (newQuantity > stock && newQuantity > quantity) {
@@ -87,7 +88,7 @@ class ProductsInCartServices {
                     total: newQuantity * price,
                     quantity: newQuantity
                 }, {
-                    where: { id: productIdCart }
+                    where: { id: productId }
                 });
                 const { cartProduct } = await Cart.findOne({
                     where: { id },
