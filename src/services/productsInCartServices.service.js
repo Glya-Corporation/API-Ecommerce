@@ -65,20 +65,21 @@ class ProductsInCartServices {
         try {
             const { quantity } = await ProductsInCart.findOne({ where: { productId: productId } });
             const { stock, price } = await Products.findOne({ where: { id: productId } });
+            const diference = newQuantity - quantity;
 
-            if (newQuantity > stock && newQuantity > quantity) {
+            if ( diference > stock ) {
                 return "No hay stock suficiente"
             } else {
                 if (newQuantity > quantity) {
                     const updateCount = await Products.update(
-                        { stock: stock - (newQuantity - quantity) },
+                        { stock: stock - diference },
                         { where: { id: productId } }
                     );
                 }
 
                 if (newQuantity < quantity) {
                     const updateCount = await Products.update(
-                        { stock: stock + (quantity - newQuantity) },
+                        { stock: stock + (-1 * diference) },
                         { where: { id: productId } }
                     );
                 };
