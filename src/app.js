@@ -5,7 +5,6 @@ const db = require('./utils/database');
 const hendleError = require('./middlewares/error.middleware');
 const initModels = require('./models/initModels');
 const { UserRoutes, ProductsRoutes, RolesRoutes, CategoriesRoutes, AuthRoutes } = require('./routes');
-const seedDatabase = require('./seeders/seeder');
 
 const app = express();
 
@@ -18,11 +17,11 @@ db.authenticate()
     .then(() => console.log('Authenticate complete'))
     .catch(error => console.log(error));
 
-db.sync({ force: false })
+db.sync({ force: true })
     .then(() => console.log('Synchronized database'))
     .catch(error => console.log(error));
 
-initModels();
+    initModels();
 
 app.get('/', (req, res) => {
     console.log('Bienvenido al server');
