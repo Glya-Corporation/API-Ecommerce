@@ -23,7 +23,6 @@ db.sync({ force: false })
     .catch(error => console.log(error));
 
 initModels();
-seedDatabase();
 
 app.get('/', (req, res) => {
     console.log('Bienvenido al server');
