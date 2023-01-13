@@ -263,7 +263,7 @@ const router = Router();
 *                   $ref: '#/components/schemas/Cart'
 *     400:
 *       description: Missing Data
-* /api/v1/user/cart/{cartId}/purchases:
+* /api/v1/user/{userId}/purchase:
 *  put:
 *   security:
 *     - bearerAuth: []
@@ -271,7 +271,7 @@ const router = Router();
 *   summary: Purchases
 *   parameters:
 *    - in: path
-*      name: cartId
+*      name: userId
 *      schema:
 *       type: integer
 *       required: true
@@ -294,7 +294,7 @@ const router = Router();
 *                   $ref: '#/components/schemas/Purchase'
 *     400:
 *       description: Missing Data
-* /api/v1/user/{userId}/cart/purchases:
+* /api/v1/user/{userId}/purchases:
 *  get:
 *   security:
 *     - bearerAuth: []
@@ -346,9 +346,9 @@ router.put('/user/cart/:id/product/update', updateProductInCart);
 
 router.delete('/user/cart/product/:id', deleteProductInCart);
 
-router.put('/user/cart/:id/purchases', purchases);
+router.put('/user/:id/purchase', purchases);
 
-router.get('/user/:id/cart/purchases', getPurchases);
+router.get('/user/:id/purchases', getPurchases);
 
 
 module.exports = router;

@@ -17,11 +17,13 @@ const Order = db.define('order', {
     totalPrice: {
         type: DataTypes.FLOAT,
         allowNull: false,
-        field: "total_price"
+        field: "total_price",
+        defaultValue: 0
     },
     status: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "Empty"
     }
 });
 

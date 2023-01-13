@@ -1,4 +1,4 @@
-const { Users, Cart } = require('../models')
+const { Users, Cart, Order } = require('../models')
 
 class UserServices {
     static async create(newUser) {
@@ -33,7 +33,23 @@ class UserServices {
     }
     static async getAllUsers() {
         try {
-            const result = await Users.findAll()
+            const result = await Users.findAll({
+                attributes: {
+                    exclude: ["password", "codeVerify", "createdAt", "updatedAt", "role_id"]
+                },
+                include: [
+                    {
+                        model: Cart,
+                        as: 'cart',
+                        attributes: ["id", "status"]
+                    },
+                    {
+                        model: Order,
+                        as: 'order',
+                        attributes: ["id", "status"]
+                    }
+                ]
+            })
             return result
         } catch (error) {
             throw error
