@@ -5,6 +5,6 @@ require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-  console.log("servidor corriendo");
+  console.log(`Run server in http://${process.env.HOST}:${PORT}`);
   swaggerDocs(app, PORT);
 });

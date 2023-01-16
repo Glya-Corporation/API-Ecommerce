@@ -28,7 +28,7 @@ const swaggerDocs = (app, port) => {
         res.setHeader("Content-Type", "application/json");
         res.send(swaggerSpec)
     });
-    console.log(`Documentation available in ${process.env.HOST}/api/v1/docs`)
+    console.log(`Documentation available in http://${process.env.HOST}:${port}/api/v1/docs`)
 }
 
 module.exports = swaggerDocs

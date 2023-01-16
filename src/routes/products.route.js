@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const { createProduct, getAllProducts, getProductsByUser, updateProduct, updateStockProduct, deleteProduct } = require('../controllers');
 const authenticate = require('../middlewares/auth.middleware');
+const multer = require('multer');
+
 
 const router = Router();
 
@@ -205,7 +207,9 @@ const router = Router();
 *                   description: The error content.
 */
 
-router.post('/product', authenticate, createProduct);
+const upload = multer({ dest: 'uploads/' });
+
+router.post('/product', upload.any(), createProduct);
 
 router.get('/products', getAllProducts);
 

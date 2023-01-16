@@ -2,7 +2,6 @@ const db = require('../utils/database');
 const { DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
-const code = () => Math.ceil( Math.random() * 999999 );
 
 /**
 * @openapi
@@ -207,11 +206,11 @@ const code = () => Math.ceil( Math.random() * 999999 );
 *                                  example: 1
 */
 
- 
 
+const code = () => Math.ceil( Math.random() * 999999 );
 
 const Users = db.define('users', {
-
+    
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

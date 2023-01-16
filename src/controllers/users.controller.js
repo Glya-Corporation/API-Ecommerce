@@ -1,5 +1,5 @@
 const { UserServices, ProductsInCartServices, ProductsInOrderServices } = require("../services");
-//const { template, template2 } = require("../template/index");
+const template = require("../template/template");
 const transporter = require('../utils/mailer');
 
 const createUser = async (req, res, next) => {
@@ -9,13 +9,13 @@ const createUser = async (req, res, next) => {
         const { userCreated, cartCreated } = dataCreated;
         const result = { user: userCreated, cart: cartCreated };
         res.status(201).json(result);
-        /* transporter.sendMail({
+        transporter.sendMail({
             from: "<alfonsouzcategui2@gmail.com>",
             to: userCreated.email,
             subject: "Welcome to my store",
-            text: `¡Hello! ${userCreated.name} this is your verification code: ${userCreated.codeVerify}`,
-            html: template(userCreated.name, userCreated.codeVerify)
-        }); */
+            text: `¡Hello! ${userCreated.firstName} this is your verification code: ${userCreated.codeVerify}`,
+            html: template(userCreated)
+        });
     } catch (error) {
         next({
             status: 400,

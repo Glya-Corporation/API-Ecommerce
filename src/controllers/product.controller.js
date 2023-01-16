@@ -1,10 +1,16 @@
 const { ProductServices } = require('../services');
 const transporter = require('../utils/mailer');
+const fs = require('fs');
 
 const createProduct = async (req, res, next) => {
     try {
         const newProduct = req.body;
-        const result = await ProductServices.create(newProduct);
+        const imgs = req.files;
+        req.files.forEach((file, i) => {
+            req.files[i].buffer = fs.readFileSync(file.path);
+        });
+        console.log(newProduct, imgs);
+        //const result = await ProductServices.create(newProduct);
         if (result === "You are not an admin") {
             return res.status(400).json(result);
         } else {
