@@ -68,7 +68,7 @@ class ProductServices {
             if (data.productImgs.length > 1) newUpdate.productImgs = data.productImgs;
 
             const previousProduct = await Products.findOne({ where: { id }, attributes: ["title", "description", "price", "productImgs", "updatedAt"] });
-            const updateRequest = await Products.update({ ...newUpdate }, { where: { id } });
+            await Products.update({ ...newUpdate }, { where: { id } });
             const productUpdated = await Products.findOne({ where: { id }, attributes: ["title", "description", "price", "productImgs", "updatedAt"] });
 
             const result = {
@@ -84,7 +84,7 @@ class ProductServices {
         try {
             const previousProduct = await Products.findOne({ where: { id }, attributes: ["title", "stock", "updatedAt"] });
             if (stock > 0) {
-                const updateRequest = await Products.update({ stock: previousProduct.stock + stock }, { where: { id } });
+                await Products.update({ stock: previousProduct.stock + stock }, { where: { id } });
                 const productUpdated = await Products.findOne({ where: { id }, attributes: ["title", "stock", "updatedAt"] });
 
                 const result = {
@@ -102,7 +102,7 @@ class ProductServices {
         try {
             const previousProduct = await Products.findOne({ where: { id } });
             if (previousProduct) {
-                const deletedRequest = await Products.destroy({ where: { id } });
+                await Products.destroy({ where: { id } });
 
                 const result = {
                     status: "Deleted product",

@@ -1,4 +1,4 @@
-const { Users, Cart, Order } = require('../models')
+const { Users, Cart, Order, Products, ProductsInCart, ProductsInOrder } = require('../models')
 
 class UserServices {
     static async create(newUser) {
@@ -58,9 +58,16 @@ class UserServices {
     static async deleteUser(id) {
         try {
             const user = await Users.findOne({ where: { id } })
-            const result = await Users.destroy({
-                where: { id }
-            })
+            const promises = [
+                Users.destroy({ where: { id } }),
+                Cart.destroy({ where: { userId: id } }),
+                Order.destroy({ where: { userId: id } }),
+                Products.destroy({ where: { userId: id } }),
+                ProductsInCart.destroy({ where: { userId: id } }),
+                ProductsInOrder.destroy({ where: { userId: id } })
+            ]
+
+            await Promise.all(promises)
             return {status: "Deleted", userDeleted: user}
         } catch (error) {
             throw error
