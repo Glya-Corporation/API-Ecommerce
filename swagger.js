@@ -6,7 +6,7 @@ const options = {
         openapi:"3.0.0",
         info:{
             title:"Ecommerce API",
-            version:"1.0.1",
+            version:"1.0.2",
             description:"API que sirve para crear un ecommerce al estilo de mercadolibre"
         }
 

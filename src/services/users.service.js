@@ -57,14 +57,29 @@ class UserServices {
     }
     static async deleteUser(id) {
         try {
-            const user = await Users.findOne({ where: { id } })
+            const user = await Users.findOne({
+                where: { id },
+                include: [
+                    {
+                        model: Cart,
+                        as: 'cart',
+                        attributes: ["id"]
+                    },
+                    {
+                        model: Order,
+                        as: 'order',
+                        attributes: ["id"]
+                    }
+                ]
+            });
+            
             const promises = [
                 Users.destroy({ where: { id } }),
                 Cart.destroy({ where: { userId: id } }),
-                Order.destroy({ where: { userId: id } }),
                 Products.destroy({ where: { userId: id } }),
-                ProductsInCart.destroy({ where: { userId: id } }),
-                ProductsInOrder.destroy({ where: { userId: id } })
+                user.order.id && Order.destroy({ where: { userId: id } }),
+                user.cart.id && ProductsInCart.destroy({ where: { cartId: user.cart.id } }),
+                user.order.id && ProductsInOrder.destroy({ where: { orderId: user.order.id } })
             ]
 
             await Promise.all(promises)
